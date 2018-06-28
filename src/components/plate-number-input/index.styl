@@ -1,0 +1,178 @@
+@import '~@/stylus/index.styl'
+
+inputFoucs = rgb(246, 210, 11)
+inputSpanBorderColor = rgb(175, 175, 175)
+
+#inputboxWrapper
+  background-color #000000
+  background-image linear-gradient(rgb(39, 53, 66), rgb(27, 36, 45))
+  box-sizing border-box
+  padding 1.866667rem 0
+  disflex()
+  align-items center
+
+  .container-info
+    font-family 'PingFang-SC-Medium'
+    font-size 16px
+    color #ffffff
+    text-align center
+
+  .container-input
+    margin-top 24px
+    disflex(row, false, space-between)
+    height 2.7rem
+    width 86%
+    margin-bottom 10px
+
+    span
+      display block
+      text-align center
+      line-height 2.7rem
+      font-size 1.068rem
+      color #dee5eb
+      height 100%
+      flex 1
+      border 1px solid inputSpanBorderColor
+      border-right 0
+      box-sizing border-box
+
+      &.focus
+        border-color inputFoucs
+
+        & + span
+          border-left-color inputFoucs
+
+      &:first-child
+        border-radius 6px 0 0 6px
+
+      &:last-child
+        border-radius 0px 6px 6px 0px
+        border-right 1px solid inputSpanBorderColor
+
+        &.focus
+          border-right-color inputFoucs
+
+  .container-save-button
+    width 90%
+    height 2.56rem
+    margin-top 2.56rem
+
+    .btnbind
+      display block
+      width 100%
+      height 100%
+      text-align center
+      line-height 2.56rem
+      border-radius 6px
+      background-color #f0e6ac
+      color #5c5426
+      font-size 0.91rem
+
+      &.active
+        background-color rgb(246, 207, 7)
+
+  .container-switch-button
+    margin-top 1.92rem
+    font-size 0.747rem
+    line-height 1.28rem /* 24/18.75 */
+    color #ECE09B
+    disflex(row, true, center)
+
+    &::before
+      content ' '
+      width 1.28rem /* 24/18.75 */
+      height 1.28rem /* 24/18.75 */
+      background-image url('../../assets/trans_bindcarnum.png')
+      background-repeat no-repeat
+      background-size cover
+
+.bar_bindcarnum
+  display block
+  width 100%
+  height 3px
+  background-image url('../../assets/bar_bindcarnum.png')
+  background-repeat repeat-x
+
+#keyboardWrapper
+  stackyfooters()
+  background-color #e0e0e0
+
+  &.hide
+    display none
+
+  .keyboard-row
+    width 100vw
+    disflex(row, false, center)
+    margin-bottom 0.426667rem /* 8/18.75 */
+
+    &:first-child
+      justify-content flex-end
+      background-color #fff
+      margin-top 0.053333rem /* 1/18.75 */
+
+      span.keyboard-item
+        margin-right 15px
+        color #f6cf07
+        font-size 17px
+        line-height 33px
+
+    &:not(:first-child)
+      .keyboard-item
+        height 2.133333rem /* 40/18.75 */
+        border-radius 5px
+        color #2e2e2e
+        font-size 0.853333rem /* 16/18.75 */
+        background-color #fff
+        flex 1
+        margin-right 0.213333rem /* 4/18.75 */
+        display flex
+        justify-content center
+        align-items center
+
+        &:active
+          background-color #e8e8e8
+
+        &:first-child
+          margin-left 0.213333rem /* 4/18.75 */
+
+        &.keyboard-placeholder
+          background-color transparent
+
+        &.keyboard-disable
+          background-color rgb(208, 208, 208)
+
+        &.keyboard-delete
+          background-color rgb(170, 178, 188)
+          background-image url('../../assets/airportdelete.png')
+          background-position center center
+          background-repeat no-repeat
+          background-size 20px 13px
+
+// fork from vant
+@keyframes van-slide-bottom-enter
+  from
+    -webkit-transform translate3d(0, 100%, 0)
+    transform translate3d(0, 100%, 0)
+
+@keyframes van-slide-bottom-enter
+  from
+    -webkit-transform translate3d(0, 100%, 0)
+    transform translate3d(0, 100%, 0)
+
+@keyframes van-slide-bottom-leave
+  to
+    -webkit-transform translate3d(0, 100%, 0)
+    transform translate3d(0, 100%, 0)
+
+@keyframes van-slide-bottom-leave
+  to
+    -webkit-transform translate3d(0, 100%, 0)
+    transform translate3d(0, 100%, 0)
+
+.van-slide-bottom-enter-active
+  -webkit-animation van-slide-bottom-enter 0.3s both ease
+  animation van-slide-bottom-enter 0.3s both ease
+
+.van-slide-bottom-leave-active
+  -webkit-animation van-slide-bottom-leave 0.3s both ease
+  animation van-slide-bottom-leave 0.3s both ease
