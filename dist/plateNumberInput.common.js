@@ -108,12 +108,12 @@ var setPublicPath = __webpack_require__("HrLf");
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es6.function.name.js
 var es6_function_name = __webpack_require__("f3/d");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"D://my//07-repo//vue-plate-number-input//node_modules//.cache//vue-loader","cacheIdentifier":"44dc3398-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/plate-number-input/index.vue?vue&type=template&id=4474c128
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"D://my//07-repo//vue-plate-number-input//node_modules//.cache//vue-loader","cacheIdentifier":"44dc3398-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/plate-number-input/index.vue?vue&type=template&id=8eb98834
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"wrapper"},[_c('div',{staticClass:"container-top",attrs:{"id":"inputboxWrapper"}},[_c('div',{staticClass:"container-info"},[_vm._v(_vm._s(_vm.headerText))]),_c('div',{staticClass:"container-input"},_vm._l((_vm.inputList),function(item,index){return (_vm.lastInputDisplay(index))?_c('span',{class:{focus:index === _vm.currentIndex},on:{"click":function($event){_vm.onInputBoxInput(index)}}},[_vm._v(_vm._s(item.text))]):_vm._e()})),_vm._t("default"),_c('div',{staticClass:"container-save-button"},[_c('span',{staticClass:"btnbind",class:{active:_vm.isSaveButtonActive},attrs:{"id":"btnSave"},on:{"click":_vm.onSaveButtonClick}},[_vm._v(_vm._s(_vm.saveButtonText))])]),_c('div',{staticClass:"container-switch-button",on:{"click":_vm.onSwitchButtonClick}},[_vm._v("\n        "+_vm._s(_vm.switchText)+"\n    ")])],2),_c('transition',{attrs:{"name":"van-slide-bottom"}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.keyboardDisplay),expression:"keyboardDisplay"}],attrs:{"id":"keyboardWrapper"}},_vm._l((_vm.currentKeyboard),function(row,index){return _c('div',{class:_vm._prefix('row')},_vm._l((row),function(col){return _c('span',{class:_vm.getColClass(col),on:{"click":function($event){_vm.onKeyBoardClick(col)}}},[_vm._v(_vm._s(col === _vm.DELETE? "":col))])}))}))])],1)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/plate-number-input/index.vue?vue&type=template&id=4474c128
+// CONCATENATED MODULE: ./src/components/plate-number-input/index.vue?vue&type=template&id=8eb98834
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es7.array.includes.js
 var es7_array_includes = __webpack_require__("Z2Ku");
@@ -272,25 +272,25 @@ function note() {
 
 
 /* harmony default export */ var plate_number_inputvue_type_script_lang_js = ({
-  name: 'plateNumberInput',
+  name: "plateNumberInput",
   props: {
     saveButtonText: {
       type: String,
-      default: '保存'
+      default: "保存"
     },
     headerText: {
       type: String,
-      default: '请输入您的车牌'
+      default: "请输入您的车牌"
     },
     switchTextArr: {
       type: Array,
       default: function _default() {
-        return ['切换为新能源绿车牌', '点击切换为普通蓝牌车'];
+        return ["切换为新能源绿车牌", "点击切换为普通蓝牌车"];
       }
     },
     value: {
       type: String,
-      default: ''
+      default: ""
     }
   },
   data: function data() {
@@ -338,8 +338,8 @@ function note() {
         var carNumber = this.inputList.reduce(function (next, item, index) {
           if (index >= _this2.currentMaxInputLength) return next;
           return next + item.text;
-        }, '');
-        this.$emit('input', carNumber);
+        }, "");
+        this.$emit("input", carNumber);
         return carNumber;
       }
     }
@@ -375,24 +375,24 @@ function note() {
       return " keyboard-".concat(str, " ");
     },
     getColClass: function getColClass(col) {
-      var className = this._prefix('item');
+      var className = this._prefix("item");
 
       if (col === this.DELETE) {
         return className + this._prefix(this.DELETE);
       }
 
-      if (col === '') {
-        return className + this._prefix('placeholder');
+      if (col === "") {
+        return className + this._prefix("placeholder");
       }
 
       if (this.disableRule.includes(col)) {
-        return className + this._prefix('disable');
+        return className + this._prefix("disable");
       }
 
       return className;
     },
     clickDeleteKey: function clickDeleteKey() {
-      this.inputList[this.currentIndex].text = '';
+      this.inputList[this.currentIndex].text = "";
       if (this.currentIndex === 0) return;
       this.currentIndex--;
     },
@@ -400,30 +400,30 @@ function note() {
       this.currentIndex = this.currentIndex === this.currentMaxInputLength - 1 ? this.currentIndex : ++this.currentIndex;
     },
     onKeyBoardClick: function onKeyBoardClick(item) {
-      if (item === '') {
-        return note('点击的是空白键');
+      if (item === "") {
+        return note("点击的是空白键");
       }
 
       if (item === CONFIRMED) {
         this.keyboardDisplay = false;
-        return note('点击的是', CONFIRMED);
+        return note("点击的是", CONFIRMED);
       }
 
       if (item === DELETE) {
         this.clickDeleteKey();
-        return note('点击的是', DELETE);
+        return note("点击的是", DELETE);
       }
 
       if (this.disableRule.includes(item)) {
-        return note('点击的是禁用键');
+        return note("点击的是禁用键");
       }
 
       this.inputList[this.currentIndex].text = item;
       this.nextKey();
     },
     onSaveButtonClick: function onSaveButtonClick() {
-      note('点击的是 确定按钮');
-      this.$emit('saveButtonClick', this.isSaveButtonActive);
+      note("点击的是 确定按钮");
+      this.$emit("saveButtonClick", this.isSaveButtonActive);
     }
   }
 });

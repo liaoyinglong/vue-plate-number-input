@@ -12,7 +12,7 @@
  <div id="app">
     <plate-number-input  v-model="carnum" @saveButtonClick='onSaveButtonClick'>
       <div>
-        slot的内容插入到这里
+        slot 的内容 {{carnum}}
       </div>
     </plate-number-input>
   </div>

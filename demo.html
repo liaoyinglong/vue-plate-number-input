@@ -14,15 +14,29 @@
   <script src="./plateNumberInput.umd.js"></script>
 
   <div id="app">
-    <plate-number-input>
+    <plate-number-input v-model="carnum" @saveButtonClick='onSaveButtonClick'>
       <div>
-        slot的内容插入到这里
+        slot 的内容 {{carnum}}
       </div>
     </plate-number-input>
   </div>
 
   <script>
-    new Vue({ el: "#app" })
+    new Vue({
+      el: "#app",
+      data() {
+        return {
+          carnum: "粤B123452"
+        };
+      },
+      methods: {
+        onSaveButtonClick(isSaveButtonActive) {
+          console.log(
+            isSaveButtonActive ? "此时保存按钮可用" : "此时保存按钮不可用"
+          );
+        }
+      }
+    })
   </script>
 
 </body>
