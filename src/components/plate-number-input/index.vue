@@ -1,21 +1,18 @@
 
   <template>
-  <div>
-    <div>
-      <div id='inputboxWrapper' class="container-top">
-        <div class='container-info'>{{headerText}}</div>
-        <div class="container-input">
-          <span v-for="(item,index) in inputList" :class="{focus:index === currentIndex}" @click='onInputBoxInput(index)' v-if='lastInputDisplay(index)'>{{item.text}}</span>
-        </div>
-        <div slot></div>
-        <div class="container-save-button">
-          <span id="btnSave" class="btnbind" :class="{active:isSaveButtonActive}">{{saveButtonText}}</span>
-        </div>
-        <div class="container-switch-button" @click='onSwitchButtonClick'>
-          &nbsp;&nbsp;{{switchText}}
-        </div>
+  <div class="wrapper">
+    <div id='inputboxWrapper' class="container-top">
+      <div class='container-info'>{{headerText}}</div>
+      <div class="container-input">
+        <span v-for="(item,index) in inputList" :class="{focus:index === currentIndex}" @click='onInputBoxInput(index)' v-if='lastInputDisplay(index)'>{{item.text}}</span>
       </div>
-      <span class='bar_bindcarnum'></span>
+      <slot></slot>
+      <div class="container-save-button">
+        <span id="btnSave" class="btnbind" @click="onSaveButtonClick" :class="{active:isSaveButtonActive}">{{saveButtonText}}</span>
+      </div>
+      <div class="container-switch-button" @click='onSwitchButtonClick'>
+        &nbsp;&nbsp;{{switchText}}
+      </div>
     </div>
     <transition name="van-slide-bottom">
       <div id="keyboardWrapper" v-show='keyboardDisplay'>
@@ -28,27 +25,35 @@
 </template>
 
 <script>
-import { keyboard, disableKeyBoard, CAR_NUMBER_TYPES, DELETE, CONFIRMED, inputList } from './config.js';
-import { note } from '@/common/log';
+import {
+  keyboard,
+  disableKeyBoard,
+  CAR_NUMBER_TYPES,
+  DELETE,
+  CONFIRMED,
+  inputList
+} from "./config.js";
+import { note } from "@/common/log";
 export default {
+  name: "plateNumberInput",
   props: {
     saveButtonText: {
       type: String,
-      default: '保存'
+      default: "保存"
     },
     headerText: {
       type: String,
-      default: '请输入您的车牌'
+      default: "请输入您的车牌"
     },
     switchTextArr: {
       type: Array,
       default() {
-        return ['切换为新能源绿车牌', '点击切换为普通蓝牌车'];
+        return ["切换为新能源绿车牌", "点击切换为普通蓝牌车"];
       }
     },
     value: {
       type: String,
-      default: ''
+      default: ""
     }
   },
   data() {
@@ -63,7 +68,8 @@ export default {
   },
   computed: {
     switchText() {
-      const switchTextIndex = this.carNumerType === CAR_NUMBER_TYPES.NEWPOWER ? 1 : 0;
+      const switchTextIndex =
+        this.carNumerType === CAR_NUMBER_TYPES.NEWPOWER ? 1 : 0;
       return this.switchTextArr[switchTextIndex];
     },
     currentKeyboard() {
@@ -81,18 +87,30 @@ export default {
     currentCarNumber: {
       set(carNumber) {
         const strArr = [...carNumber];
-        this.carNumerType = strArr.length === 7 ? CAR_NUMBER_TYPES.NORMAL : CAR_NUMBER_TYPES.NEWPOWER;
+        this.carNumerType =
+          strArr.length <= 7
+            ? CAR_NUMBER_TYPES.NORMAL
+            : CAR_NUMBER_TYPES.NEWPOWER;
         strArr.forEach((item, index) => {
-          this.inputList[index] = item;
+          this.inputList[index].text = item;
         });
+        this.currentIndex =
+          strArr.length === this.currentMaxInputLength
+            ? this.currentMaxInputLength - 1
+            : strArr.length;
       },
       get() {
-        return this.inputList.reduce((next, item, index) => {
+        const carNumber = this.inputList.reduce((next, item, index) => {
           if (index >= this.currentMaxInputLength) return next;
           return next + item.text;
-        }, '');
+        }, "");
+        this.$emit("input", carNumber);
+        return carNumber;
       }
     }
+  },
+  created() {
+    this.currentCarNumber = this.value;
   },
   methods: {
     onInputBoxInput(index) {
@@ -110,7 +128,9 @@ export default {
         oldMaxInputLength = 8;
       }
       this.currentIndex =
-        this.currentIndex === oldMaxInputLength - 1 ? this.currentMaxInputLength - 1 : this.currentIndex;
+        this.currentIndex === oldMaxInputLength - 1
+          ? this.currentMaxInputLength - 1
+          : this.currentIndex;
     },
     lastInputDisplay(index) {
       if (index !== this.inputList.length - 1) return true;
@@ -120,48 +140,50 @@ export default {
       return ` keyboard-${str} `;
     },
     getColClass(col) {
-      let className = this._prefix('item');
+      let className = this._prefix("item");
       if (col === this.DELETE) {
         return className + this._prefix(this.DELETE);
       }
-      if (col === '') {
-        return className + this._prefix('placeholder');
+      if (col === "") {
+        return className + this._prefix("placeholder");
       }
       if (this.disableRule.includes(col)) {
-        return className + this._prefix('disable');
+        return className + this._prefix("disable");
       }
       return className;
     },
     clickDeleteKey() {
-      this.inputList[this.currentIndex].text = '';
+      this.inputList[this.currentIndex].text = "";
       if (this.currentIndex === 0) return;
       this.currentIndex--;
     },
     nextKey() {
       this.currentIndex =
-        this.currentIndex === this.currentMaxInputLength - 1 ? this.currentIndex : ++this.currentIndex;
+        this.currentIndex === this.currentMaxInputLength - 1
+          ? this.currentIndex
+          : ++this.currentIndex;
     },
     onKeyBoardClick(item) {
-      if (item === '') {
-        return note('点击的是空白键');
+      if (item === "") {
+        return note("点击的是空白键");
       }
       if (item === CONFIRMED) {
         this.keyboardDisplay = false;
-        return note('点击的是', CONFIRMED);
+        return note("点击的是", CONFIRMED);
       }
       if (item === DELETE) {
         this.clickDeleteKey();
-        return note('点击的是', DELETE);
+        return note("点击的是", DELETE);
       }
       if (this.disableRule.includes(item)) {
-        return note('点击的是禁用键');
+        return note("点击的是禁用键");
       }
       this.inputList[this.currentIndex].text = item;
       this.nextKey();
     },
     onSaveButtonClick() {
-      note('点击的是 确定按钮');
-      this.$emit('saveButtonClick', this.isSaveButtonActive);
+      note("点击的是 确定按钮");
+      this.$emit("saveButtonClick", this.isSaveButtonActive);
     }
   }
 };

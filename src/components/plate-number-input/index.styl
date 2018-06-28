@@ -3,11 +3,13 @@
 inputFoucs = rgb(246, 210, 11)
 inputSpanBorderColor = rgb(175, 175, 175)
 
+.wrapper
+  background-color rgb(47, 62, 81)
+  min-height 100vh
+
 #inputboxWrapper
-  background-color #000000
-  background-image linear-gradient(rgb(39, 53, 66), rgb(27, 36, 45))
   box-sizing border-box
-  padding 1.866667rem 0
+  padding 26px 0
   disflex()
   align-items center
 
@@ -20,15 +22,15 @@ inputSpanBorderColor = rgb(175, 175, 175)
   .container-input
     margin-top 24px
     disflex(row, false, space-between)
-    height 2.7rem
+    height 38px
     width 86%
     margin-bottom 10px
 
     span
       display block
       text-align center
-      line-height 2.7rem
-      font-size 1.068rem
+      line-height 38px
+      font-size 16px
       color #dee5eb
       height 100%
       flex 1
@@ -54,44 +56,37 @@ inputSpanBorderColor = rgb(175, 175, 175)
 
   .container-save-button
     width 90%
-    height 2.56rem
-    margin-top 2.56rem
+    height 40px
+    margin-top 35px
+    line-height 40px
 
     .btnbind
       display block
       width 100%
       height 100%
       text-align center
-      line-height 2.56rem
       border-radius 6px
       background-color #f0e6ac
       color #5c5426
-      font-size 0.91rem
+      font-size 16px
 
       &.active
         background-color rgb(246, 207, 7)
 
   .container-switch-button
-    margin-top 1.92rem
-    font-size 0.747rem
-    line-height 1.28rem /* 24/18.75 */
+    margin-top 26px
+    font-size 14px
+    line-height 24px
     color #ECE09B
     disflex(row, true, center)
 
     &::before
       content ' '
-      width 1.28rem /* 24/18.75 */
-      height 1.28rem /* 24/18.75 */
+      width 24px
+      height 24px
       background-image url('../../assets/trans_bindcarnum.png')
       background-repeat no-repeat
       background-size cover
-
-.bar_bindcarnum
-  display block
-  width 100%
-  height 3px
-  background-image url('../../assets/bar_bindcarnum.png')
-  background-repeat repeat-x
 
 #keyboardWrapper
   stackyfooters()
@@ -103,12 +98,12 @@ inputSpanBorderColor = rgb(175, 175, 175)
   .keyboard-row
     width 100vw
     disflex(row, false, center)
-    margin-bottom 0.426667rem /* 8/18.75 */
+    margin-bottom 8px
 
     &:first-child
       justify-content flex-end
       background-color #fff
-      margin-top 0.053333rem /* 1/18.75 */
+      margin-top 1px
 
       span.keyboard-item
         margin-right 15px
@@ -118,13 +113,13 @@ inputSpanBorderColor = rgb(175, 175, 175)
 
     &:not(:first-child)
       .keyboard-item
-        height 2.133333rem /* 40/18.75 */
+        height 35px
         border-radius 5px
         color #2e2e2e
-        font-size 0.853333rem /* 16/18.75 */
+        font-size 16px
         background-color #fff
         flex 1
-        margin-right 0.213333rem /* 4/18.75 */
+        margin-right 4px
         display flex
         justify-content center
         align-items center
@@ -133,7 +128,7 @@ inputSpanBorderColor = rgb(175, 175, 175)
           background-color #e8e8e8
 
         &:first-child
-          margin-left 0.213333rem /* 4/18.75 */
+          margin-left 4px
 
         &.keyboard-placeholder
           background-color transparent
